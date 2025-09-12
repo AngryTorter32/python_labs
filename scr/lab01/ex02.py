@@ -4,6 +4,6 @@ a = float(a)
 b = str(input("b: "))
 b = b.replace(',', '.')
 b = float(b)
-s = a + b
-avg = s / 2
-print('sum = ', s, '; avg= ', avg, sep='')
+s = round(a + b, 2)
+avg = round(s / 2, 2)
+print('sum=', s, '; avg=', avg, sep='')
