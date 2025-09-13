@@ -1,0 +1,19 @@
+s = str(input())
+w = []
+for i in range(len(s)):
+    w.append(s[i])
+for i in range(len(w)):
+    if w[i].isupper():
+        n1 = i
+        break
+for i in range(len(w)):
+    if w[i].isdigit():
+        n2 = i + 1
+        break
+r = n2 - n1
+k = (len(s) - n2) // r
+fin = w[n1] + w[n2]
+for i in range(k):
+    fin = fin + s[n2 + k * i]
+print(fin, n1, n2, k, r)
+print(w)
