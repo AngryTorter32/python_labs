@@ -1,1 +1,3 @@
-<h1>Heading level 1</h1>
+<h1>Лабораторная_01</h1>
+<h2>Номер 01</h2>
+[ex01](/images/lab01/ex01.png)
