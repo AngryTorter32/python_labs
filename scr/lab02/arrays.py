@@ -10,10 +10,10 @@ def unique_sorted(b):
 def flatten(c): #!!!!!!!!!!!!
     d = []
     for i in range(len(c)):
-        if (type(c[i]) == int) or (type(c[i]) == str):
-            d.append(c[i])
-        else:
+        if (type(c[i]) == list) or (type(c[i]) == tuple):
             d.extend(c[i])
+        else:
+            return 'TypeError'
     return d
 print('min_max:')
 print(min_max([3, -1, 5, 5, 0]), min_max([42]), min_max([-5, -2, -9]), sep = '\n')
