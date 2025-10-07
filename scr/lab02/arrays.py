@@ -7,7 +7,7 @@ def unique_sorted(b):
     b = set(b)
     b = sorted(list(b))
     return b
-def flatten(c): #!!!!!!!!!!!!
+def flatten(c):
     d = []
     for i in range(len(c)):
         if (type(c[i]) == list) or (type(c[i]) == tuple):
