@@ -23,4 +23,4 @@ print(unique_sorted([3, 1, 2, 1, 3]), unique_sorted([]), sep = '\n')
 print(unique_sorted([-1, -1, 0, 2, 2]), unique_sorted([1.0, 1, 2.5, 2.5, 0]), sep = '\n')
 print('flatten:')
 print(flatten([[1, 2], [3, 4]]), flatten(([1, 2], (3, 4, 5))), flatten([[1], [], [2, 3]]), sep = '\n')
-print(flatten([[1, 2], "ab"])) #!!!!!!!!!!!!!!!
+print(flatten([[1, 2], "ab"]))
