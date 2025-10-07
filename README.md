@@ -106,3 +106,123 @@ print('out:', fin)
 ```
 <img width="1504" height="1226" alt="ex07" src="https://github.com/user-attachments/assets/409e55e1-822b-4c8d-87ed-aa213abede17" />
 Принимаю на вход зашифрованное сообщение, зная, что шаг между символами настоящего сообшения фиксированный, нахожу индекс первой буквы (зная что она находится в верхнем регистре) при помщи перебора и функции isupper. Второй символ находится сразу после цифры, поэтому находим ее индекс при помощи перебора и функции isdigit, а затем добавляем 1 к результату. После этого нахожу разницу между индексами, чтобы понять шаг, по которому находятся нужные символы. Расчитываю сколько всего символов в истинном сообщении и при помощи цикла for, зная их индексы добавляю их к предыдущим двум буквам, получая расшифрованное сообщение.
+
+## Лабораторная_02</h1>
+### Номер 01
+```python
+def min_max(a):
+    if len(a) > 0:
+        return (min(a), max(a))
+    else:
+        return 'ValueError'
+def unique_sorted(b):
+    b = set(b)
+    b = sorted(list(b))
+    return b
+def flatten(c):
+    d = []
+    for i in range(len(c)):
+        if (type(c[i]) == list) or (type(c[i]) == tuple):
+            d.extend(c[i])
+        else:
+            return 'TypeError'
+    return d
+print('min_max:')
+print(min_max([3, -1, 5, 5, 0]), min_max([42]), min_max([-5, -2, -9]), sep = '\n')
+print(min_max([]), min_max([1.5, 2, 2.0, -3.1]), ' ', sep = '\n')
+print('unique_sorted:')
+print(unique_sorted([3, 1, 2, 1, 3]), unique_sorted([]), sep = '\n')
+print(unique_sorted([-1, -1, 0, 2, 2]), unique_sorted([1.0, 1, 2.5, 2.5, 0]), ' ', sep = '\n')
+print('flatten:')
+print(flatten([[1, 2], [3, 4]]), flatten(([1, 2], (3, 4, 5))), flatten([[1], [], [2, 3]]), sep = '\n')
+print(flatten([[1, 2], "ab"]))
+```
+<img width="1710" height="1266" alt="ex_01" src="https://github.com/user-attachments/assets/e834b96d-4be5-4c67-b93b-2d51790799c3" />
+че-нить сказать
+
+### Номер 02
+```python
+def transpose(a):
+    for i in range(len(a) - 1):
+        if len(a[i]) != len(a[i + 1]):
+            return "ValueError"
+    if a == []:
+        return []
+    ansA = []
+    y = len(a)
+    x = len(a[0])
+    for i in range(x):
+        ansS = []
+        for j in range(y):
+            ansS.append(a[j][i])
+        ansA.append(ansS)
+    return ansA
+
+def row_sums(a):
+    for i in range(len(a) - 1):
+        if len(a[i]) != len(a[i + 1]):
+            return "ValueError"
+    if a == []:
+        return []
+    ans = []
+    for i in range(len(a)):
+        ans.append(sum(a[i]))
+    return ans
+
+def col_sums(a):
+    for i in range(len(a) - 1):
+        if len(a[i]) != len(a[i + 1]):
+            return "ValueError"
+    if a == []:
+        return []
+    ans = []
+    for j in range(len(a[0])):
+        c = 0
+        for i in range(len(a)):
+            c += a[i][j]
+        ans.append(c)
+    return ans
+print('transpose:')
+print(transpose([[1, 2, 3]]), transpose([[1], [2], [3]]), transpose([[1, 2], [3, 4]]), sep = '\n')
+print(transpose([]), transpose([[1, 2], [3]]), sep = '\n')
+
+print(' ', 'row_sums:', sep = '\n')
+print(row_sums([[1, 2, 3], [4, 5, 6]]), row_sums([[-1, 1], [10, -10]]), sep = '\n')
+print(row_sums([[0, 0], [0, 0]]), row_sums([[1, 2], [3]]), sep = '\n')
+
+print(' ', 'col_sums:', sep = '\n')
+print(col_sums([[1, 2, 3], [4, 5, 6]]), col_sums([[-1, 1], [10, -10]]), sep = '\n')
+print(col_sums([[0, 0], [0, 0]]), col_sums([[1, 2], [3]]), sep = '\n')
+```
+<img width="1720" height="1278" alt="ex_02" src="https://github.com/user-attachments/assets/ecbb9ff3-4b2e-4a37-b5fd-621880a855a1" />
+сказать че-нить
+
+### Номер 03
+```python
+def tuples(a):
+    if type(a[0]) != str or type(a[1]) != str or type(a[2]) != float:
+        return 'TypeError' #проверяю на соответсвие типа данных и вывожу ошибку, если неверно
+    if a[2] > 5.00:
+        return "ValueError" #GPA не может быть больше 5.0
+    name = a[0].split()
+    if len(name) < 2:
+        return 'ValueError' #Необходимо хотя бы два слова в ФИО
+    for i in range(len(name)):
+        name[i] = name[i].capitalize() #capitalize делает первую букву слова большой
+    fio = str(name[0]) + ' '
+    for i in range(1, len(name)):
+        fio += name[i][0]
+        fio += '. '
+    fio = fio[:-1]
+    return fio + ', ' + str(a[1])+ ', GPA ' + str(round(a[2], 2))
+print(tuples(("Иванов Иван Иванович", "BIVT-25", 4.6)))
+print(tuples(("Петров Пётр", "IKBO-12", 5.0)))
+print(tuples(("Петров Пётр Петрович", "IKBO-12", 5.0)))
+print(tuples(("  сидорова  анна   сергеевна ", "ABB-01", 3.999)))
+print(tuples((2007, 'BIVT-25-2', 4.0))) #проверяю, определяет ли программа ошибку типа данных
+print(tuples(('Илья Кузнецов', 'BIVT-25-2', 10.0))) #проверяю, видит ли программа ошибку значения данных
+print(tuples(("Илья", 'BIVT-25', 5.0))) #проверяю, видит ли программа, что нужно хотя бы два слова в ФИО
+print(tuples(('Кузнецов Илья Дмитриевич', 'BIVT-25-2', 5.0))) #проверка своего имени
+```
+<img width="1716" height="1280" alt="ex_03" src="https://github.com/user-attachments/assets/12a3f83e-3b1b-446f-b1a2-466b7c087972" />
+написать ченить
