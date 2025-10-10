@@ -200,7 +200,7 @@ print(col_sums([[0, 0], [0, 0]]), col_sums([[1, 2], [3]]), sep = '\n')
 ### Номер 03
 ```python
 def tuples(a):
-    if type(a[0]) != str or type(a[1]) != str or type(a[2]) != float:
+    if type(a[0]) != str or type(a[1]) != str or type(a[2]) != float or type(a) != tuple:
         return 'TypeError' #проверяю на соответсвие типа данных и вывожу ошибку, если неверно
     if a[2] > 5.00:
         return "ValueError" #GPA не может быть больше 5.0
