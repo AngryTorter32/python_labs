@@ -25,11 +25,20 @@ def tokenize(text):
 def count_freq(text):
     sl = set(text)
     sl = list(sl)
-    kol = []
+    kol = {}
     for i in range(len(sl)):
-        a = str(sl[i]) + ':' + str(text.count(sl[i]))
-        kol.append(a)
+        kol.update({sl[i]:text.count(sl[i])})
     return kol
+def top_n(d, n):
+    fin = []
+    sl = set(d)
+    sl = list(sl)
+    kol = {}
+    for i in range(len(sl)):
+        kol.update({sl[i]:d.count(sl[i])})
+    for i in range(n):
+        fin.append(kol.get(i))
+    return fin
 print('normalize:')
 print(normalize("ПрИвЕт\nМИр\t", True, True), normalize('ёжик, Ёлка', True, True), sep = '\n')
 print(normalize("Hello\r\nWorld", True, True), normalize("  двойные   пробелы  ", True, True), sep='\n')
@@ -38,4 +47,5 @@ print(tokenize("привет мир"), tokenize("hello,world!!!"), sep = '\n')
 print(tokenize("по-настоящему круто"), tokenize("2025 год"), sep = '\n')
 print(tokenize("emoji 😀 не слово"))
 print(' ', 'count_freq + top_n:', sep = '\n')
-print(count_freq(["a","b","a","c","b","a"]))
+print('Частоты:', count_freq(["a","b","a","c","b","a"]), 'Топ:', top_n(["a","b","a","c","b","a"], 2))
+print('Частоты:', count_freq(["bb","aa","bb","aa","cc"]), 'Топ:', top_n(["bb","aa","bb","aa","cc"], 2))
