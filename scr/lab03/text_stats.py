@@ -1,3 +1,3 @@
-from scr.lib.text import *
+from scr.lib import text
 text = input()
 print(normalize(text))
