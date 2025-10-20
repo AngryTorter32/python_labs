@@ -30,15 +30,18 @@ def count_freq(text):
         kol.update({sl[i]:text.count(sl[i])})
     return kol
 def top_n(d, n):
-    fin = []
-    sl = set(d)
-    sl = list(sl)
-    kol = {}
-    for i in range(len(sl)):
-        kol.update({sl[i]:d.count(sl[i])})
-    for i in range(n):
-        fin.append(kol.get(i))
-    return fin
+    uni = set(d)
+    uni = list(uni)
+    uni = sorted(uni)
+    k = {}
+    kol = []
+    for i in range(len(uni)):
+        k.update({uni[i]:d.count(uni[i])})
+        kol.append(d.count(uni[i]))
+    for i in range(len(k) - n):
+        k.popitem()
+    return k
+print(top_n(['bb', 'bb', 'aa', 'aa', 'cc'], 2))
 print('normalize:')
 print(normalize("ПрИвЕт\nМИр\t", True, True), normalize('ёжик, Ёлка', True, True), sep = '\n')
 print(normalize("Hello\r\nWorld", True, True), normalize("  двойные   пробелы  ", True, True), sep='\n')
