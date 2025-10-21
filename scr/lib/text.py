@@ -41,7 +41,7 @@ def top_n(d, n):
     for i in range(len(k) - n):
         k.popitem()
     return k
-print(top_n(['bb', 'bb', 'aa', 'aa', 'cc'], 2))
+'''
 print('normalize:')
 print(normalize("ПрИвЕт\nМИр\t", True, True), normalize('ёжик, Ёлка', True, True), sep = '\n')
 print(normalize("Hello\r\nWorld", True, True), normalize("  двойные   пробелы  ", True, True), sep='\n')
@@ -52,3 +52,4 @@ print(tokenize("emoji 😀 не слово"))
 print(' ', 'count_freq + top_n:', sep = '\n')
 print('Частоты:', count_freq(["a","b","a","c","b","a"]), 'Топ:', top_n(["a","b","a","c","b","a"], 2))
 print('Частоты:', count_freq(["bb","aa","bb","aa","cc"]), 'Топ:', top_n(["bb","aa","bb","aa","cc"], 2))
+'''
