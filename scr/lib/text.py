@@ -33,15 +33,16 @@ def top_n(d, n):
     uni = set(d)
     uni = list(uni)
     uni = sorted(uni)
-    k = {}
     kol = []
+    fin = {}
     for i in range(len(uni)):
-        k.update({uni[i]:d.count(uni[i])})
         kol.append(d.count(uni[i]))
-    for i in range(len(k) - n):
-        k.popitem()
-    return k
-'''
+    for i in range(len(uni)):
+        fin.update({uni[i]:kol[i]})
+    s_fin = dict(sorted(fin.items(), key = lambda item: (-item[1], item[0])))
+    for i in range(len(s_fin) - n):
+        s_fin.popitem()
+    return s_fin
 print('normalize:')
 print(normalize("ПрИвЕт\nМИр\t", True, True), normalize('ёжик, Ёлка', True, True), sep = '\n')
 print(normalize("Hello\r\nWorld", True, True), normalize("  двойные   пробелы  ", True, True), sep='\n')
@@ -52,4 +53,3 @@ print(tokenize("emoji 😀 не слово"))
 print(' ', 'count_freq + top_n:', sep = '\n')
 print('Частоты:', count_freq(["a","b","a","c","b","a"]), 'Топ:', top_n(["a","b","a","c","b","a"], 2))
 print('Частоты:', count_freq(["bb","aa","bb","aa","cc"]), 'Топ:', top_n(["bb","aa","bb","aa","cc"], 2))
-'''
