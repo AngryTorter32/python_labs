@@ -40,6 +40,7 @@ def top_n(d, n):
     for i in range(len(uni)):
         fin.update({uni[i]:kol[i]})
     s_fin = dict(sorted(fin.items(), key = lambda item: (-item[1], item[0])))
+    s_fin = fin
     for i in range(len(s_fin) - n):
         s_fin.popitem()
     return s_fin
