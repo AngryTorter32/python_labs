@@ -4,9 +4,14 @@ text = normalize(text, True, True)
 text = tokenize(text)
 print('Всего слов:', len(text))
 print('Уникальных слов:', len(set(text)))
+sp = top_n(text, 5)
 sl = []
-top = top_n(text, 5)
-k = top.keys()
-n = list(k)
-print(top, n)
-#запускать командой python -m scr.lab03.text_stats
+for i in range(len(sp)):
+    sl.append(len(sp[i][0]))
+m = max(sl)
+if m < len('Слово'):
+    m = len('Слово')
+print('Слово', ' ' * (m - len('Слово')), '|', ' частота', sep = '')
+print('-' * m, '-' * 9, sep = '')
+for i in range(len(sp)):
+    print(sp[i][0], ' ' * (m - len(sp[i][0])), '| ', sp[i][1], sep = '')
