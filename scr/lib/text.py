@@ -29,21 +29,23 @@ def count_freq(text):
     for i in range(len(sl)):
         kol.update({sl[i]:text.count(sl[i])})
     return kol
-def top_n(d, n):
-    uni = set(d)
+def top_n(t, n):
+    fin = {}
+    uni = set(t)
     uni = list(uni)
     uni = sorted(uni)
     kol = []
-    fin = {}
     for i in range(len(uni)):
-        kol.append(d.count(uni[i]))
-    for i in range(len(uni)):
-        fin.update({uni[i]:kol[i]})
-    s_fin = dict(sorted(fin.items(), key = lambda item: (-item[1], item[0])))
-    s_fin = fin
-    for i in range(len(s_fin) - n):
-        s_fin.popitem()
-    return s_fin
+        kol.append(t.count(uni[i]))
+    kol_u = set(kol)
+    kol_u = sorted(list(kol_u), reverse=True)
+    for i in kol_u:
+        for j in uni:
+            if t.count(j) == i:
+                fin.update({j:i})
+    for i in range(len(fin) - n):
+        fin.popitem()
+    return fin
 print('normalize:')
 print(normalize("ПрИвЕт\nМИр\t", True, True), normalize('ёжик, Ёлка', True, True), sep = '\n')
 print(normalize("Hello\r\nWorld", True, True), normalize("  двойные   пробелы  ", True, True), sep='\n')
