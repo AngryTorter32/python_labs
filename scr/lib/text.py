@@ -16,7 +16,7 @@ def normalize(text, casefold, yo2e):
     text = text.strip()
     return text
 def tokenize(text):
-    raz = ['!', ',', '😀', '—', ':', ';', '?', '/', '&', '*', '#', '$', '%']
+    raz = ['!', ',', '😀', '—', ':', ';', '?', '/', '&', '*', '#', '$', '%', '.']
     for i in range(len(text)):
         if text[i] in raz:
             text = text.replace(text[i], ' ')
