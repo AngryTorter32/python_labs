@@ -22,3 +22,4 @@ if vkl == 'on':
 else:
     for i in range(len(sp)):
         print(sp[i][0], ':', sp[i][1], sep = '')
+        
