@@ -226,3 +226,86 @@ print(tuples(('Кузнецов Илья Дмитриевич', 'BIVT-25-2', 5.0
 ```
 <img width="1716" height="1280" alt="ex_03" src="https://github.com/user-attachments/assets/12a3f83e-3b1b-446f-b1a2-466b7c087972" />
 Для начала я проверию на соответсвие типов данных, затем на величину показателя GPA, он не должен превышать 5.0. Еще одна проверка необходима, чтобы знать, что в ФИО не попадет только одно слово. Затем при помощи перебора и функции capitalize(делает первую букву строки большой), я составляю ФИО и делаю вывод со всеми необходимыми переменными. Далее я добавил несколько дополнительных тест-кейсов, чтобы показать работу моих проверок.
+
+## Лабораторная_03</h1>
+### задание A
+```python
+def normalize(text, casefold, yo2e):
+    if casefold != False:
+        text = text.casefold()
+    if yo2e != False:
+        text = text.replace('ё', 'е')
+        text = text.replace('Ё', 'Е')
+    text = text.replace('\n', ' ')
+    text = text.replace('\t', ' ')
+    text = text.replace('\r', ' ')
+    text = text.replace('\b', ' ')
+    spis = text.split()
+    text = ''
+    for i in range(len(spis)):
+        text += spis[i]
+        text += ' '
+    text = text.strip()
+    return text
+def tokenize(text):
+    raz = ['!', ',', '😀', '—', ':', ';', '?', '/', '&', '*', '#', '$', '%']
+    for i in range(len(text)):
+        if text[i] in raz:
+            text = text.replace(text[i], ' ')
+    spis = text.split()
+    return spis
+def count_freq(t):
+    fin = {}
+    uni = set(t)
+    uni = list(uni)
+    uni = sorted(uni)
+    kol = []
+    for i in range(len(uni)):
+        kol.append(t.count(uni[i]))
+    kol_u = set(kol)
+    kol_u = sorted(list(kol_u), reverse=True)
+    for i in kol_u:
+        for j in uni:
+            if t.count(j) == i:
+                fin.update({j:i})
+    return fin
+def top_n(t, n):
+    fin = []
+    uni = set(t)
+    uni = list(uni)
+    uni = sorted(uni)
+    kol = []
+    for i in range(len(uni)):
+        kol.append(t.count(uni[i]))
+    kol_u = set(kol)
+    kol_u = sorted(list(kol_u), reverse=True)
+    for i in kol_u:
+        for j in uni:
+            if t.count(j) == i:
+                fin.append((j, i))
+    fin_s = []
+    if n > len(uni):
+        n = len(uni)
+    for i in range(n):
+        fin_s.append(fin[i])
+    return fin_s
+'''
+print('normalize:')
+print(normalize("ПрИвЕт\nМИр\t", True, True), normalize('ёжик, Ёлка', True, True), sep = '\n')
+print(normalize("Hello\r\nWorld", True, True), normalize("  двойные   пробелы  ", True, True), sep='\n')
+print('', 'tokenize:', sep = '\n')
+print(tokenize("привет мир"), tokenize("hello,world!!!"), sep = '\n')
+print(tokenize("по-настоящему круто"), tokenize("2025 год"), sep = '\n')
+print(tokenize("emoji 😀 не слово"))
+print(' ', 'count_freq + top_n:', sep = '\n')
+print('Частоты:', count_freq(["a","b","a","c","b","a"]), 'Топ:', top_n(["a","b","a","c","b","a"], 2))
+print('Частоты:', count_freq(["bb","aa","bb","aa","cc"]), 'Топ:', top_n(["bb","aa","bb","aa","cc"], 2))
+'''
+```
+![text](https://github.com/user-attachments/assets/d59ba110-70f5-416f-93a8-a5af2e75a446)
+normalize: 
+Для начала реализую работу casefold и yo2e при помощи .replace и .casefold, затем в цикле перебирую текст, чтобы собрать его в готовом виде.
+tokenize:
+Создаю список со всеми разделителями, при помощи цикла и функции replace замению их в тексте на пробелы. Превращаб текст в список функций split.
+count_freq:
+Сначала, через множество и sorted создаю список уникальных слов из текста, затем нахожу их частоту в тексте так, чтобы у слова и его частоты в списке был одинаковый индекс. Уже знакомым способом создаю список уникальных значений частот, а затем перебирая уникальные значения в порядке убывания, добавляю в словарь пары слово:частота
