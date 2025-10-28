@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Text Stats",
+            "type": "python",
+            "request": "launch",
+            "module": "scr.lab03.text_stats",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

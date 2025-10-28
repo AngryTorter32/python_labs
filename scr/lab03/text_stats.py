@@ -1,4 +1,4 @@
-from ..lib.text import *
+from ..lib.text import normalize, tokenize, top_n
 text = input()
 text = normalize(text, True, True)
 text = tokenize(text)
