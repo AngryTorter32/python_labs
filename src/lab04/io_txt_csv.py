@@ -5,7 +5,14 @@ from typing import Iterable, Sequence
 
 def read_text(path: str | Path, encoding: str = "utf-8") -> str: # FileNotFoundError и UnicodeDecodeError могут появляться
     p = Path(path)
-    return p.read_text(encoding=encoding)
+    t = str(p.read_text(encoding=encoding))
+    t = t.strip()
+    s = t.split() #преобразуем текст в список слов
+    fin = ''
+    for i in range(len(s)): #делаем из нескольких строк одну
+        fin = fin + s[i] + ' '
+    return fin.strip()
+
 file_name = input('Введите название файла в папке data (по умолчанию - input.txt): ') #по желанию пользователя может быть выбран другой файл
 if file_name == '':
     file_path = r"C:\Users\kuzne\Desktop\laby_piton\python_labs\src\data\lab04\input.txt" #по умолчанию используется файл input.txt
@@ -32,4 +39,5 @@ def write_csv(rows: Iterable[Sequence], path: str | Path,
             w.writerow(header)
         for r in rows:
             w.writerow(r)
+
 write_csv([("Проект А", "100000", "80000", "20000"), ("Проект Б", "50000", "45000", "5000"), ("Проект В", "75000", "60000", "15000")], Path("C:/Users/kuzne/Desktop/laby_piton/python_labs/src/data/lab04/report.csv"), ("Проект", "Доход", "Расход", "Прибыль"))
