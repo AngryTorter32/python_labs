@@ -10,6 +10,6 @@ cod = input('Введите кодировку файла (по умолчани
 if cod == '':
     cod = 'utf-8' #по умолчанию кодировка utf-8
 t = read_text(file_path, cod)
-t = normalize(t)
+t = normalize(t, True, True)
 s = tokenize(t)
 print(s)
