@@ -2,12 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run Text Stats",
-            "type": "python",
+            "name": "Python Debugger",
+            "type": "debugpy",
             "request": "launch",
-            "module": "scr.lab03.text_stats",
+            "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "env": {
+                "PYTHONIOENCODING": "utf-8"
+            }
         }
     ]
 }
