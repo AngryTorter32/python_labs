@@ -442,6 +442,10 @@ write_csv([("Проект А", "100000", "80000", "20000"), ("Проект Б", 
 
 ![io_txt_csv_report](https://github.com/user-attachments/assets/8bd74b7f-c443-45e5-8a18-36190b1b945a)
 
+Вывод ошибки в случае "рваных" строк:
+
+![io_error](https://github.com/user-attachments/assets/fd0c97cd-461d-4574-be7c-c6e061be643c)
+
 так же к заданию прилагался тест:
 ```python
 from io_txt_csv import read_text, write_csv
