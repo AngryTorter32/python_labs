@@ -434,6 +434,13 @@ def write_csv(rows: Iterable[Sequence], path: str | Path,
 
 write_csv([("Проект А", "100000", "80000", "20000"), ("Проект Б", "50000", "45000", "5000"), ("Проект В", "75000", "60000", "15000")], Path("C:/Users/kuzne/Desktop/laby_piton/python_labs/src/data/lab04/report.csv"), ("Проект", "Доход", "Расход", "Прибыль"))
 ```
+
+соджержимое input.txt:
+```
+Шла саша по шоссе
+И сосала сушку
+
+```
 ![io_txt_csv_code](https://github.com/user-attachments/assets/5be6db3c-9757-407a-a7a9-7bf4817769c0)
 
 В функции read_text я добавил возможность переводить многострочный текст в одну строку, так же написал небольшой скрипт, благодаря которому пользователь может сам выбрать название файла для считывания в папке и его кодировку.
@@ -454,6 +461,6 @@ write_csv([("word","count"),("test",3)], "data/check.csv")  # создаст CSV
 ```
 Содержимое файла после работы теста:
 
-![io_check](https://github.com/user-attachments/assets/0f3262b4-7549-43aa-8fc3-ecb454f25ab8)
+![io_check](https://github.com/user-attachments/assets/2967fae0-84f1-4ba5-aa2d-9a94b73aadf5)
 
 ### Задание B
