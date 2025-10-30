@@ -3,13 +3,11 @@
     "configurations": [
         {
             "name": "Python Debugger",
-            "type": "debugpy",
+            "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "env": {
-                "PYTHONIOENCODING": "utf-8"
-            }
+            "cwd": "${workspaceFolder}/src"
         }
     ]
 }
