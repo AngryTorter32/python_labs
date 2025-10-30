@@ -2,12 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger",
+            "name": "Run text_report",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "module": "src.lab04.text_report",
             "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/src"
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
