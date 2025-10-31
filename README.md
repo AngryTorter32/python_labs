@@ -464,3 +464,54 @@ write_csv([("word","count"),("test",3)], "data/check.csv")  # создаст CSV
 ![io_check](https://github.com/user-attachments/assets/2967fae0-84f1-4ba5-aa2d-9a94b73aadf5)
 
 ### Задание B
+```python
+from ..lib.text import normalize, tokenize, top_n
+from ..lib.io_txt_csv import read_text, write_csv
+
+file_name = input('Введите название файла в папке data (по умолчанию - input.txt): ') #по желанию пользователя может быть выбран другой файл
+if file_name == '':
+    file_path = r"C:\Users\kuzne\Desktop\laby_piton\python_labs\src\data\lab04\input.txt" #по умолчанию используется файл input.txt
+else:
+    file_path = r"C:\Users\kuzne\Desktop\laby_piton\python_labs\src\data\lab04" + f'\{file_name}'
+cod = input('Введите кодировку файла (по умолчанию - utf-8): ') #по желанию пользователя, может быть выбрана другая кодировка
+if cod == '':
+    cod = 'utf-8' #по умолчанию кодировка utf-8
+t = read_text(file_path, cod)
+t = normalize(t, True, True) #нормализация
+s = tokenize(t) #токенизация
+uni = set(s) #уникальные слова
+top = top_n(s, len(uni)) #нахожу частоты
+top.insert(0, ('word', 'count')) #добавляю заголовок
+write_csv(top, r'C:\Users\kuzne\Desktop\laby_piton\python_labs\src\data\lab04\report.csv') #запись отчета
+print('Всего слов: ', len(s))
+print('Уникальных слов: ', len(uni))
+print('Топ-5:')
+top5 = top_n(s, 5)
+for i in range(len(top5)):
+        print(top5[i][0], ':', top5[i][1], sep = '')
+```
+
+Этот скрипт стал итогом работы над ЛР3 и ЛР4, здесь я обьединил все свои наработки, начиная с чтения текста, его нормализацией, токенизацией и написанием отчета. Далее я приложу тест кейсы:
+
+A:
+![testA](https://github.com/user-attachments/assets/c05ea5e3-aae3-49e6-b5c4-f477fd6a9f55)
+Содержимое csv:
+```
+word,count
+привет,2
+мир,1
+```
+B:
+![testB](https://github.com/user-attachments/assets/d2ecc7d5-ac62-4d7f-bfa5-986924372c9a)
+Содержимое csv:
+```
+word,count
+
+```
+C:
+![testC](https://github.com/user-attachments/assets/67dc094c-e1d0-4f35-b945-e7e2f6edd9db)
+Содержимое csv:
+```
+word,count
+привет,1
+```
