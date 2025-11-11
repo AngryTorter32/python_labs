@@ -12,7 +12,7 @@ def json_to_csv(json_path: str, csv_path: str):
             except json.JSONDecodeError:
                 raise ValueError
         if data == []:
-            raise ValueError
+            raise ValueError("Пустой JSON или неподдерживаемая структура")
         with path_c.open('w', newline='', encoding='utf-8') as cf:
             writer = csv.DictWriter(cf, fieldnames=['name', 'age'])
             writer.writeheader()
@@ -36,5 +36,9 @@ def csv_to_json(csv_path: str, json_path: str):
     except FileNotFoundError:
         print('FileNotFoundError')
 
+'''
+json_to_csv('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.json',
+            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people_from_json.csv')
 csv_to_json('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.csv', 
             'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people_from_csv.json')
+'''
