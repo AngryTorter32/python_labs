@@ -653,7 +653,7 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
 csv_to_xlsx('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.csv',
             'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people.xlsx')
 ```
-Чтобы переместить данные из csv в xlsx, сначала подключаю необходимые библиотеки csv и openpyxl (предварительно скачав последнюю при помощи pip). Для начала активирую кингу, создаем переменную как первый лист в ней. Теперь в самой функции, ищем файлы по путям, не забывая про ошибку FileNotFoundError. Затем открываем csv файл и построчно добавляем оттуда данные в лист из xlsx. В конце сохраняем файл xlsx.
+Чтобы переместить данные из csv в xlsx, сначала подключаю необходимые библиотеки csv и openpyxl (предварительно скачав последнюю при помощи pip). Для начала активирую кингу, создаю переменную как первый лист в ней. Теперь в самой функции, ищем файлы по путям, не забывая про ошибку FileNotFoundError. Затем открываем csv файл и построчно добавляем оттуда данные в лист из xlsx. В конце сохраняем файл xlsx.
 
 Содержимое people.csv:
 ```
@@ -664,4 +664,4 @@ csv_to_xlsx('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\
 
 Содержимое people.xlsx после работы программы:
 <img width="2160" height="1440" alt="exel" src="https://github.com/user-attachments/assets/45dc7a91-4e46-44cc-ab96-59171f2f2a76" />
-Модем заметить что перенос данных произошел корректно.
+Можем заметить, что перенос данных произошел корректно.
