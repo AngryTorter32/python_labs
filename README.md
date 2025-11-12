@@ -515,3 +515,83 @@ C:
 word,count
 привет,1
 ```
+## Лабораторная_05</h1>
+### Задание А
+```python
+import json
+import csv
+from pathlib import Path
+
+def json_to_csv(json_path: str, csv_path: str):
+    try:
+        path_j = Path(json_path)
+        path_c = Path(csv_path)
+        with path_j.open('r', encoding='utf-8') as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                raise ValueError("Пустой JSON или неподдерживаемая структура")
+        if data == []:
+            raise ValueError("Пустой JSON или неподдерживаемая структура")
+        fieldnames = data[0].keys()
+        with path_c.open('w', newline='', encoding='utf-8') as cf:
+            writer = csv.DictWriter(cf, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(data)
+    except FileNotFoundError:
+        print('FileNotFoundError')
+
+def csv_to_json(csv_path: str, json_path: str):
+    try:
+        path_j = Path(json_path)
+        path_c = Path(csv_path)
+        with open(path_c, encoding='utf-8') as f:
+                try:
+                    data = list(csv.DictReader(f))
+                except csv.Error:
+                    raise ValueError
+        if data == []:
+            raise ValueError
+        with path_j.open('w', encoding='utf-8') as f_j:
+            json.dump(data, f_j, ensure_ascii=False, indent=2)
+    except FileNotFoundError:
+        print('FileNotFoundError')
+
+json_to_csv('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.json',
+            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people_from_json.csv')
+csv_to_json('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.csv', 
+            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people_from_csv.json')
+```
+
+В этом модуле реализуется две функции, одна переводит json в csv, другая csv в json, о каждой расскажу отдельно.
+
+1)Чтобы перевести json в csv, подключим библиотеки json, csv и pathlib, имея пути ко всем необходимым файлам, подымем ошибку, если их не существует (питон и так ее выводит, но поскольку это отдельно прописано в задании, я решил это прописать). Считаем данные из json при помощи json.load(), не забываю выводить ValueError, если json пуст или с ним что-то не так. Затем открываем csv файл и записываем в него данные из json при помощи csv.DictWriter. Заголовки получаю, когда нахожу ключи любом словаре из json. Далее приведу скриншоты использования и результаты.
+
+Содержимое people.json:
+```
+[
+  {"name": "Alice", "age": 22},
+  {"name": "Bob", "age": 25}
+]
+```
+Содержимое people_from_json.csv, после работы программы:
+```
+name,age
+Alice,22
+Bob,25
+```
+Как видно, данные сохранились с правильным заголовком, верным количеством строк и столбцов.
+
+Пустой json:
+<img width="2160" height="1342" alt="blank_json" src="https://github.com/user-attachments/assets/5a16e658-8fe0-4422-a18d-30c1b9725f18" />
+
+Список с не-словарями:
+json:
+```
+[
+  (12, 12), (12, 12)
+]
+```
+<img width="2159" height="1439" alt="incorrct_json" src="https://github.com/user-attachments/assets/1cca6439-3edb-4dc7-bca8-7ad21c7545cd" />
+
+2)
