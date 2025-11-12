@@ -594,4 +594,74 @@ json:
 ```
 <img width="2159" height="1439" alt="incorrct_json" src="https://github.com/user-attachments/assets/1cca6439-3edb-4dc7-bca8-7ad21c7545cd" />
 
-2)Чтобы перевести csv в json, используем те же библиотеки.
+2)Чтобы перевести csv в json, используем те же библиотеки. Учитываем ошибки ненахождения файла, а так же чтения csv. Не забываем про то, что если csv файл пуст, необходимо вывести ошибку. Затем просто записываем данные в json при помощи json.dump.
+
+Содержимое people.csv:
+```
+Имя,Возраст,Город,Профессия
+Анна,28,Москва,Инженер
+Иван,34,Санкт-Петербург,Дизайнер
+```
+Содержимое people_from_csv.json после работы программы:
+```
+[
+  {
+    "Имя": "Анна",
+    "Возраст": "28",
+    "Город": "Москва",
+    "Профессия": "Инженер"
+  },
+  {
+    "Имя": "Иван",
+    "Возраст": "34",
+    "Город": "Санкт-Петербург",
+    "Профессия": "Дизайнер"
+  }
+]
+```
+Ошибка в случае открытие пустого csv:
+<img width="2160" height="1440" alt="blank_csv" src="https://github.com/user-attachments/assets/cc145116-1a35-4a36-aa94-bc6d27a0fa47" />
+
+Ошибка, если файла отсутствует:
+<img width="2160" height="1440" alt="csv_not_found" src="https://github.com/user-attachments/assets/87824130-ae9e-4c74-93ba-7f18d676da87" />
+
+### Задание B
+```python
+import csv
+from pathlib import Path
+from openpyxl import Workbook, load_workbook
+
+wb = Workbook()
+ws = wb.active
+ws.title = "Sheet1"
+
+def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
+    try:
+        path_c = Path(csv_path)
+        path_x = Path(xlsx_path)
+    except FileNotFoundError:
+        raise FileNotFoundError
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Sheet1'
+    with open(path_c, encoding='utf-8') as f:
+        for row in csv.reader(f):
+            ws.append(row)
+    wb.save(path_x)
+
+
+csv_to_xlsx('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.csv',
+            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people.xlsx')
+```
+Чтобы переместить данные из csv в xlsx, сначала подключаю необходимые библиотеки csv и openpyxl (предварительно скачав последнюю при помощи pip). Для начала активирую кингу, создаем переменную как первый лист в ней. Теперь в самой функции, ищем файлы по путям, не забывая про ошибку FileNotFoundError. Затем открываем csv файл и построчно добавляем оттуда данные в лист из xlsx. В конце сохраняем файл xlsx.
+
+Содержимое people.csv:
+```
+Имя,Возраст,Город,Профессия
+Анна,28,Москва,Инженер
+Иван,34,Санкт-Петербург,Дизайнер
+```
+
+Содержимое people.xlsx после работы программы:
+<img width="2160" height="1440" alt="exel" src="https://github.com/user-attachments/assets/45dc7a91-4e46-44cc-ab96-59171f2f2a76" />
+Модем заметить что перенос данных произошел корректно.
