@@ -13,8 +13,9 @@ def json_to_csv(json_path: str, csv_path: str):
                 raise ValueError
         if data == []:
             raise ValueError("Пустой JSON или неподдерживаемая структура")
+        fieldnames = data[0].keys()
         with path_c.open('w', newline='', encoding='utf-8') as cf:
-            writer = csv.DictWriter(cf, fieldnames=['name', 'age'])
+            writer = csv.DictWriter(cf, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(data)
     except FileNotFoundError:
@@ -36,9 +37,7 @@ def csv_to_json(csv_path: str, json_path: str):
     except FileNotFoundError:
         print('FileNotFoundError')
 
-'''
-json_to_csv('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.json',
-            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people_from_json.csv')
-csv_to_json('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.csv', 
-            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people_from_csv.json')
-'''
+json_to_csv('C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\samples\\people.json', 
+            'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\out\\people_from_json.csv')
+csv_to_json('C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\samples\\people.csv', 
+            'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\out\\people_from_csv.json')
