@@ -15,7 +15,7 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
     wb = Workbook()
     ws = wb.active
     ws.title = 'Sheet1'
-    with open(path_c, encoding='utf-8') as f: #по возможности добавить проверку на адекватность csv файла
+    with open(path_c, encoding='utf-8') as f:
         for row in csv.reader(f):
             ws.append(row)
     wb.save(path_x)
