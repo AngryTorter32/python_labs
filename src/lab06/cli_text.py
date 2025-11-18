@@ -1,6 +1,5 @@
 import argparse
 from src.lib.text import top_n, normalize, tokenize
-import sys
 from pathlib import Path
 
 def main():
