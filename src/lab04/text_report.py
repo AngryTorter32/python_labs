@@ -1,5 +1,5 @@
-from ..lib.text import normalize, tokenize, top_n
 from ..lib.io_txt_csv import read_text, write_csv
+from ..lib.text import normalize, tokenize, top_n
 
 file_name = input('Введите название файла в папке data (по умолчанию - input.txt): ') #по желанию пользователя может быть выбран другой файл
 if file_name == '':

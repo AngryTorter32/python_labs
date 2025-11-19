@@ -1,6 +1,7 @@
 import csv
 from pathlib import Path
-from openpyxl import Workbook, load_workbook
+
+from openpyxl import Workbook
 
 wb = Workbook()
 ws = wb.active

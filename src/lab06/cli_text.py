@@ -1,6 +1,7 @@
 import argparse
-from src.lib.text import top_n, normalize, tokenize
 from pathlib import Path
+from src.lib.text import top_n, normalize, tokenize
+
 
 def main():
     parser = argparse.ArgumentParser(description='Модуль CLI_text, выводит текст и статистику по нему.')

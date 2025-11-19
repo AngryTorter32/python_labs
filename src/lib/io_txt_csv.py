@@ -1,5 +1,5 @@
-from pathlib import Path
 import csv
+from pathlib import Path
 from typing import Iterable, Sequence
 
 
