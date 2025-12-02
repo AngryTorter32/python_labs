@@ -9,12 +9,12 @@ def main():
 
     # подкоманда stats
     stats_parser = subparsers.add_parser('stats', help='Частоты слов')
-    stats_parser.add_argument('--input', required=True)
-    stats_parser.add_argument('--top', type=int, default=5)
+    stats_parser.add_argument('--input', required=True, help='Расположение файла')
+    stats_parser.add_argument('--top', type=int, default=5, help='Сколько слов выводить в топе')
 
     # подкоманда cat
     cat_parser = subparsers.add_parser('cat', help='Выводит содержимое файла')
-    cat_parser.add_argument('--input', required=True)
+    cat_parser.add_argument('--input', required=True, help='Расположение файла')
     cat_parser.add_argument('-n', action='store_true', help='Нумеровать строки')
 
     args = parser.parse_args()

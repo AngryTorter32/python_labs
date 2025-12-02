@@ -8,17 +8,17 @@ def main():
     parser = argparse.ArgumentParser(description="Конвертеры данных")
     sub = parser.add_subparsers(dest="cmd")
 
-    p1 = sub.add_parser("json2csv") #дописать везде help
-    p1.add_argument("--input", dest="input", required=True)
-    p1.add_argument("--output", dest="output", required=True)
+    p1 = sub.add_parser("json2csv", help='конвертация .json в .csv')
+    p1.add_argument("--input", dest="input", required=True, help='путь к файлу json')
+    p1.add_argument("--output", dest="output", required=True, help='путь к файлу csv')
 
-    p2 = sub.add_parser("csv2json")
-    p2.add_argument("--input", dest="input", required=True)
-    p2.add_argument("--output", dest="output", required=True)
+    p2 = sub.add_parser("csv2json", help='конвертация .csv в .json')
+    p2.add_argument("--input", dest="input", required=True, help='путь к файлу csv')
+    p2.add_argument("--output", dest="output", required=True, help='путь к файлу json')
 
-    p3 = sub.add_parser("csv2xlsx")
-    p3.add_argument("--input", dest="input", required=True)
-    p3.add_argument("--output", dest="output", required=True)
+    p3 = sub.add_parser("csv2xlsx", help='конвертация .csv в .xlsx')
+    p3.add_argument("--input", dest="input", required=True, help='путь к файлу csv')
+    p3.add_argument("--output", dest="output", required=True, help='путь к файлу .xlsx')
 
     args = parser.parse_args()
 
