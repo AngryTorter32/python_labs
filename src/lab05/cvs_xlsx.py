@@ -1,6 +1,5 @@
 import csv
 from pathlib import Path
-
 from openpyxl import Workbook
 
 wb = Workbook()
@@ -20,7 +19,3 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
         for row in csv.reader(f):
             ws.append(row)
     wb.save(path_x)
-
-
-csv_to_xlsx('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\people.csv',
-            'C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\out\\people.xlsx')

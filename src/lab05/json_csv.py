@@ -38,7 +38,3 @@ def csv_to_json(csv_path: str, json_path: str):
     except FileNotFoundError:
         print('FileNotFoundError')
 
-json_to_csv('C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\samples\\people.json', 
-            'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\out\\people_from_json.csv')
-csv_to_json('C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\samples\\people.csv', 
-            'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\out\\people_from_csv.json')
