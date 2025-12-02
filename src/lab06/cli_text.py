@@ -9,7 +9,7 @@ def main():
 
     # подкоманда stats
     stats_parser = subparsers.add_parser('stats', help='Частоты слов')
-    stats_parser.add_argument('--filedir', required=True)
+    stats_parser.add_argument('--input', required=True)
     stats_parser.add_argument('--top', type=int, default=5)
 
     # подкоманда cat
@@ -21,7 +21,7 @@ def main():
 
     if args.command == 'cat':
         file_path = Path(args.input)
-        text = str(file_path.open(encoding='utf-8'))
+        text = file_path.read_text(encoding='utf-8')
         text = normalize(text, True, True) 
         text_tokens = tokenize(text)
         if args.n:
@@ -32,12 +32,16 @@ def main():
                 print(i, text_tokens[i])
     
     if args.command == 'stats':
-        file_path = Path(args.filedir)
-        text = str(file_path.open(encoding='utf-8'))
+        file_path = Path(args.input)
+        text = file_path.read_text(encoding='utf-8')
         text = normalize(text, True, True)
         text_tokens = tokenize(text)
         text_top = top_n(text_tokens, args.top)
         for i in range(len(text_top)):
             print(text_top[i])
 
-#python -m src.lab06.cli_text stats --input "C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\text.txt" -- top 5
+if __name__ == "__main__":
+    main()
+
+#python -m src.lab06.cli_text stats --input "C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\text.txt" --top 5
+#python -m src.lab06.cli_text cat --input "C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\text.txt"
