@@ -43,5 +43,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-#python -m src.lab06.cli_text stats --input "C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\text.txt" --top 5
-#python -m src.lab06.cli_text cat --input "C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\text.txt"
+#python -m src.lab06.cli_text stats --input "C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\lab06\\text.txt" --top 5
+#python -m src.lab06.cli_text cat --input "C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\lab06\\text.txt"
