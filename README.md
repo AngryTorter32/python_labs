@@ -665,3 +665,59 @@ csv_to_xlsx('C:\\Users\\kuzne\\Desktop\\laby_piton\\python_labs\\data\\samples\\
 Содержимое people.xlsx после работы программы:
 <img width="2160" height="1440" alt="exel" src="https://github.com/user-attachments/assets/45dc7a91-4e46-44cc-ab96-59171f2f2a76" />
 Можем заметить, что перенос данных произошел корректно.
+
+## Лабораторная_06</h1>
+### Номер A
+```python
+import argparse
+from pathlib import Path
+from src.lib.text import top_n, normalize, tokenize
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Модуль CLI_text, выводит текст и статистику по нему.')
+    subparsers = parser.add_subparsers(dest='command')
+
+    # подкоманда stats
+    stats_parser = subparsers.add_parser('stats', help='Частоты слов')
+    stats_parser.add_argument('--input', required=True, help='Расположение файла')
+    stats_parser.add_argument('--top', type=int, default=5, help='Сколько слов выводить в топе')
+
+    # подкоманда cat
+    cat_parser = subparsers.add_parser('cat', help='Выводит содержимое файла')
+    cat_parser.add_argument('--input', required=True, help='Расположение файла')
+    cat_parser.add_argument('-n', action='store_true', help='Нумеровать строки')
+
+    args = parser.parse_args()
+
+    if args.command == 'cat':
+        file_path = Path(args.input)
+        text = file_path.read_text(encoding='utf-8')
+        text = normalize(text, True, True) 
+        text_tokens = tokenize(text)
+        if args.n:
+            for i in range(len(text_tokens)):
+                print(text_tokens[i])
+        else:
+            for i in range(len(text_tokens)):
+                print(i, text_tokens[i])
+    
+    if args.command == 'stats':
+        file_path = Path(args.input)
+        text = file_path.read_text(encoding='utf-8')
+        text = normalize(text, True, True)
+        text_tokens = tokenize(text)
+        text_top = top_n(text_tokens, args.top)
+        for i in range(len(text_top)):
+            print(text_top[i])
+
+if __name__ == "__main__":
+    main()
+```
+
+Для начала, я создаю парсер аргументов, а так же подпарсеры для cat и stats, снабдил их дополнительной информацией в help. Для подкоманды stats я добавил два аргумента: обязательный --input для указания файла и опциональный --top для ограничения количества выводимых слов (по умолчанию 5). Для подкоманды cat я также добавил --input и флаг -n для нумерации строк. В случае если задействуется команда cat, программа читает файл по указанному пути, токенезирует его, и взависимости от n выводит все токены либо пронумерованными, либо - нет. В случае когда исполнить нужно команду stats, текст из указанного файла так же проходит через нормализацию и токенизацию, но затем прогоняется через функцию top_n, после нее слова выводятся по порядку.
+
+Примеры проверки --help:
+![Uploading cli_text_help_01.jpg…]()
+![Uploading cli_text_help_02.jpg…]()
+![Uploading cli_text_help_03.jpg…]()
