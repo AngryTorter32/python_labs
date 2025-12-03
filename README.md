@@ -719,7 +719,8 @@ if __name__ == "__main__":
 
 Примеры проверки --help:
 <img width="621" height="203" alt="cli_text_help_01" src="https://github.com/user-attachments/assets/f9542104-07ac-41c3-bcb4-a649394e51d0" />
-
+![cli_text_help_02](https://github.com/user-attachments/assets/9c5678db-148e-4147-8947-86ac43059d66)
+![cli_text_help_03](https://github.com/user-attachments/assets/76d03a59-2a73-48fe-a153-7f5aaf650e8f)
 
 Содержимое text.txt:
 ```
