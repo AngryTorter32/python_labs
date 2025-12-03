@@ -718,6 +718,89 @@ if __name__ == "__main__":
 Для начала, я создаю парсер аргументов, а так же подпарсеры для cat и stats, снабдил их дополнительной информацией в help. Для подкоманды stats я добавил два аргумента: обязательный --input для указания файла и опциональный --top для ограничения количества выводимых слов (по умолчанию 5). Для подкоманды cat я также добавил --input и флаг -n для нумерации строк. В случае если задействуется команда cat, программа читает файл по указанному пути, токенезирует его, и взависимости от n выводит все токены либо пронумерованными, либо - нет. В случае когда исполнить нужно команду stats, текст из указанного файла так же проходит через нормализацию и токенизацию, но затем прогоняется через функцию top_n, после нее слова выводятся по порядку.
 
 Примеры проверки --help:
-![Uploading cli_text_help_01.png…]()
-![Uploading cli_text_help_02.jpg…]()
-![Uploading cli_text_help_03.jpg…]()
+
+Содержимое text.txt:
+```
+Привет мир 
+Привет Лена
+Мир большой
+```
+Вывод:
+
+
+### Номер B
+```python
+import argparse
+from src.lab05.json_csv import json_to_csv, csv_to_json
+from src.lab05.cvs_xlsx import csv_to_xlsx
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Конвертеры данных")
+    sub = parser.add_subparsers(dest="cmd")
+
+    p1 = sub.add_parser("json2csv", help='конвертация .json в .csv')
+    p1.add_argument("--input", dest="input", required=True, help='путь к файлу json')
+    p1.add_argument("--output", dest="output", required=True, help='путь к файлу csv')
+
+    p2 = sub.add_parser("csv2json", help='конвертация .csv в .json')
+    p2.add_argument("--input", dest="input", required=True, help='путь к файлу csv')
+    p2.add_argument("--output", dest="output", required=True, help='путь к файлу json')
+
+    p3 = sub.add_parser("csv2xlsx", help='конвертация .csv в .xlsx')
+    p3.add_argument("--input", dest="input", required=True, help='путь к файлу csv')
+    p3.add_argument("--output", dest="output", required=True, help='путь к файлу .xlsx')
+
+    args = parser.parse_args()
+
+    if args.cmd == 'json2csv':
+        json_to_csv(args.input, args.output)
+    elif args.cmd == 'csv2json':
+        csv_to_json(args.input, args.output)
+    elif args.cmd == 'csv2xlsx':
+        csv_to_xlsx(args.input, args.output)
+
+if __name__ == "__main__":
+    main()
+```
+Для начала создаем парсер и подпарсеры для трех команд, не забываем про --help. Каждый подпарсер строится по одному шаблону, использование подпарсеров для конвертации - тоже. Чтобы произвести конвертацию, мы просто вызываем функцию из прошлой ЛР, с путями для файлов, полученными из командной строки.
+
+Пример проверки --help:
+
+Содержимое people.json:
+```
+[
+  {"name": "Alice", "age": 22},
+  {"name": "Bob", "age": 25}
+]
+```
+Содержимое people_from_json.csv после работы программы:
+```
+name,age
+Alice,22
+Bob,25
+```
+Содержимое people.csv:
+```
+Имя,Возраст,Город,Профессия
+Анна,28,Москва,Инженер
+Иван,34,Санкт-Петербург,Дизайнер
+```
+Содержимое people_from_csv.json после работы программы:
+```
+[
+  {
+    "Имя": "Анна",
+    "Возраст": "28",
+    "Город": "Москва",
+    "Профессия": "Инженер"
+  },
+  {
+    "Имя": "Иван",
+    "Возраст": "34",
+    "Город": "Санкт-Петербург",
+    "Профессия": "Дизайнер"
+  }
+]
+```
+Содержимое people.xlsx после работы программы:
