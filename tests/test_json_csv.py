@@ -90,29 +90,3 @@ def test_json_to_csv_file_not_found(tmp_path: Path, capsys):
 
     captured = capsys.readouterr()
     assert "FileNotFoundError" in captured.out
-
-
-"""
-def test_json_to_csv_roundtrip(tmp_path: Path):
-    src = tmp_path / "people.json"
-    dst = tmp_path / "people.csv"
-    data = [
-        {"name": "Alice", "age": 22},
-        {"name": "Bob", "age": 25},
-    ]
-    src.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    json_to_csv(str(src), str(dst))
-
-    with dst.open(encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
-
-    assert len(rows) == 2
-    assert rows[0]["name"] == "Alice"
-    assert rows[0]["age"] == "22"  # CSV сохраняет все как строки
-    assert rows[1]["name"] == "Bob"
-    assert rows[1]["age"] == "25"
-
-def test_csv_to_json_roundtrip(tmp_path: Path):
-    # TODO: Реализовать тесты для конвертации в другую сторону
-    pass
-"""
