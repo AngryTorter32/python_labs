@@ -1009,3 +1009,115 @@ def test_json_to_csv_file_not_found(tmp_path: Path, capsys):
 ```
 В случае с тестом для функций, работающих с файлами, необходимо использовать tmp_path, чтобы не городить ненужные файлы в \data. Я начал с базовых тестов конвертации json в csv, там я проверил соответствие значений в ячейках, количество строк. Затем похожий базовый тест для конвертации csv в json. Далее необходимо было проверить работу функций с пустыми файлами. Завершает тесты проверка ошибки FileNotFoundError. (проверка black в скриншоте)
 ![json_text_black](https://github.com/user-attachments/assets/31bfb3d2-d4c7-4416-89ee-76d611d8a17a)
+
+## Лабораторная_08</h1>
+### Задание А
+```python
+from dataclasses import dataclass
+from datetime import datetime, date
+from typing import Dict, Any
+
+@dataclass
+class Student:
+    fio: str
+    birthdate: str
+    group: str
+    gpa: float
+    
+    def __post_init__(self):
+        #валидация даты рождения
+        try:
+            datetime.strptime(self.birthdate, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("Некорректный формат даты")
+        
+        #валидация среднего балла
+        if not (0 <= self.gpa <= 5):
+            raise ValueError("Средний балл должен быть в диапазоне 0-5")
+        
+        #валидация ФИО
+        if not self.fio or not self.fio.strip():
+            raise ValueError("ФИО не может быть пустым")
+        
+        #валидация группы
+        if not self.group or not self.group.strip():
+            raise ValueError("Группа не может быть пустой")
+    
+    def age(self) -> int:
+        birth_date = datetime.strptime(self.birthdate, "%Y-%m-%d").date()
+        today = date.today()
+        age = today.year - birth_date.year #вычисляем возраст
+        if (today.month, today.day) < (birth_date.month, birth_date.day): #учитываем месяц и день рождения
+            age -= 1
+        return age
+    
+    def to_dict(self) -> Dict[str, Any]: #cериализация объекта в словарь
+        return {
+            "fio": self.fio,
+            "birthdate": self.birthdate,
+            "group": self.group,
+            "gpa": self.gpa
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'Student': #десериализация объекта из словаря
+        return cls(
+            fio=data["fio"],
+            birthdate=data["birthdate"],
+            group=data["group"],
+            gpa=data["gpa"]
+        )
+    
+    def __str__(self) -> str: #вывод информации о студенте
+        return f"Студент: {self.fio}, Группа: {self.group}, Возраст: {self.age()}, Средний балл: {self.gpa}"
+```
+Для начала создаем класс Student с необходимыми полями, затем проводим валидацию всех данных через функцию __post_init__, затем создаем метод age при помощи библиотеки datetime. Сериализация и десериализация проходят при помощи функций to_dict и from_dict соответственно. Не забываем про крассивый вывод при помощи __str__.
+### Задание В
+```python
+import json
+from typing import List
+from models import Student
+
+def students_to_json(students: List[Student], path: str) -> None:
+    data = [student.to_dict() for student in students] #сериализуем студентов в словари
+    with open(path, 'w', encoding='utf-8') as f: #записываем в файл
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def students_from_json(path: str) -> List[Student]:
+    students = []
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        # Проверяем, что данные представляют собой список
+        if not isinstance(data, list):
+            raise ValueError("JSON должен содержать массив объектов")
+        # Создаем объекты Student и валидируем их
+        for i, item in enumerate(data):
+            try:
+                # Проверяем наличие всех необходимых полей
+                required_fields = ['fio', 'birthdate', 'group', 'gpa']
+                for field in required_fields:
+                    if field not in item:
+                        raise ValueError(f"Отсутствует обязательное поле: {field}")
+                student = Student.from_dict(item)
+                students.append(student)
+            except ValueError as e:
+                print(f"Ошибка при обработке записи {i}: {e}")
+                continue
+            except Exception as e:
+                print(f"Неожиданная ошибка при обработке записи {i}: {e}")
+                continue
+    except FileNotFoundError:
+        print(f"Файл не найден: {path}")
+        return []
+    except json.JSONDecodeError:
+        print(f"Ошибка чтения JSON файла: {path}")
+        return []
+    return students
+
+#тестовый запуск
+students = students_from_json("C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\lab08\\students_input.json")
+students_to_json(students, 'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\lab08\\students_output.json')
+for i in range(len(students)):
+    print(students[i])
+```
