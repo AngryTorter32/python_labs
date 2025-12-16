@@ -1104,9 +1104,6 @@ def students_from_json(path: str) -> List[Student]:
             except ValueError as e:
                 print(f"Ошибка при обработке записи {i}: {e}")
                 continue
-            except Exception as e:
-                print(f"Неожиданная ошибка при обработке записи {i}: {e}")
-                continue
     except FileNotFoundError:
         print(f"Файл не найден: {path}")
         return []
@@ -1121,6 +1118,7 @@ students_to_json(students, 'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\da
 for i in range(len(students)):
     print(students[i])
 ```
+Сначала реализовываем функцию students_to_json, она записывает данные в файл json, используя to_dict из предыдущего задания. Функция students_from_json сложнее, она дополнительно к записи из файла проводит валидацию данных. Так же я ипользовал функцию List из библиотеки typing, для более удобной работы со списками. В конце прописан код для тестового запуска.
 
 ### Тестовый запуск
 Содержимое students_input.json:
