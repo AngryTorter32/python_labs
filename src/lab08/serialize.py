@@ -3,10 +3,8 @@ from typing import List
 from models import Student
 
 def students_to_json(students: List[Student], path: str) -> None:
-    # Сериализуем студентов в словари
-    data = [student.to_dict() for student in students]
-    # Записываем в файл
-    with open(path, 'w', encoding='utf-8') as f:
+    data = [student.to_dict() for student in students] #сериализуем студентов в словари
+    with open(path, 'w', encoding='utf-8') as f: #записываем в файл
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 def students_from_json(path: str) -> List[Student]:
@@ -25,18 +23,14 @@ def students_from_json(path: str) -> List[Student]:
                 for field in required_fields:
                     if field not in item:
                         raise ValueError(f"Отсутствует обязательное поле: {field}")
-                
-                # Создаем студента (валидация происходит в __post_init__)
                 student = Student.from_dict(item)
                 students.append(student)
-                
             except ValueError as e:
                 print(f"Ошибка при обработке записи {i}: {e}")
                 continue
             except Exception as e:
                 print(f"Неожиданная ошибка при обработке записи {i}: {e}")
                 continue
-                
     except FileNotFoundError:
         print(f"Файл не найден: {path}")
         return []

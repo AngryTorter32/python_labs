@@ -10,21 +10,21 @@ class Student:
     gpa: float
     
     def __post_init__(self):
-        # Валидация даты рождения
+        #валидация даты рождения
         try:
             datetime.strptime(self.birthdate, "%Y-%m-%d")
         except ValueError:
             raise ValueError("Некорректный формат даты")
         
-        # Валидация среднего балла
+        #валидация среднего балла
         if not (0 <= self.gpa <= 5):
             raise ValueError("Средний балл должен быть в диапазоне 0-5")
         
-        # Валидация ФИО (не должно быть пустым)
+        #валидация ФИО
         if not self.fio or not self.fio.strip():
             raise ValueError("ФИО не может быть пустым")
         
-        # Валидация группы (не должна быть пустой)
+        #валидация группы
         if not self.group or not self.group.strip():
             raise ValueError("Группа не может быть пустой")
     
