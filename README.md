@@ -1121,3 +1121,39 @@ students_to_json(students, 'C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\da
 for i in range(len(students)):
     print(students[i])
 ```
+
+### Тестовый запуск
+Содержимое students_input.json:
+```
+[
+    {"fio": "Иванов Иван", "birthdate": "2000-03-15", "group": "SE-01", "gpa": 4.2},
+    {"fio": "Петров Петр", "birthdate": "2001-07-22", "group": "SE-02", "gpa": 3.8},
+    {"fio": "Сидорова Анна", "birthdate": "1999-11-30", "group": "CS-01", "gpa": 4.9}
+]
+```
+
+Содержимое students_output.json:
+```
+[
+  {
+    "fio": "Иванов Иван",
+    "birthdate": "2000-03-15",
+    "group": "SE-01",
+    "gpa": 4.2
+  },
+  {
+    "fio": "Петров Петр",
+    "birthdate": "2001-07-22",
+    "group": "SE-02",
+    "gpa": 3.8
+  },
+  {
+    "fio": "Сидорова Анна",
+    "birthdate": "1999-11-30",
+    "group": "CS-01",
+    "gpa": 4.9
+  }
+]
+```
+Скриншот запуска:
+<img width="2159" height="1345" alt="lab08_test" src="https://github.com/user-attachments/assets/c027ef77-1851-480f-b0d7-ca7ecad0247b" />
