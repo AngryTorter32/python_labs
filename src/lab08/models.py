@@ -1,99 +1,57 @@
-from datetime import datetime, date
 from dataclasses import dataclass
+from datetime import datetime, date
 from typing import Dict, Any
-
 
 @dataclass
 class Student:
-    """Класс для представления студента."""
-    
     fio: str
     birthdate: str
     group: str
     gpa: float
-
+    
     def __post_init__(self):
-        """
-        Валидация данных после инициализации.
-        Проверяет формат даты и диапазон GPA.
-        """
-        # Валидация формата даты (YYYY-MM-DD как в задании)
+        # Валидация даты рождения
         try:
-            # Используем формат из задания (YYYY-MM-DD)
             datetime.strptime(self.birthdate, "%Y-%m-%d")
         except ValueError:
-            # Поднимаем исключение с понятным сообщением
-            raise ValueError(
-                f"Неверный формат даты: {self.birthdate}. "
-                f"Ожидается формат YYYY-MM-DD (например, 2000-12-31)"
-            )
+            raise ValueError("Некорректный формат даты")
         
-        # Валидация диапазона GPA (0...5 как в задании)
+        # Валидация среднего балла
         if not (0 <= self.gpa <= 5):
-            raise ValueError(
-                f"GPA должен быть в диапазоне от 0 до 5. "
-                f"Получено: {self.gpa}"
-            )
-
+            raise ValueError("Средний балл должен быть в диапазоне 0-5")
+        
+        # Валидация ФИО (не должно быть пустым)
+        if not self.fio or not self.fio.strip():
+            raise ValueError("ФИО не может быть пустым")
+        
+        # Валидация группы (не должна быть пустой)
+        if not self.group or not self.group.strip():
+            raise ValueError("Группа не может быть пустой")
+    
     def age(self) -> int:
-        """
-        Возвращает количество полных лет студента.
-        
-        Returns:
-            int: Количество полных лет
-        """
-        # Парсим дату рождения из строки
-        # Используем формат YYYY-MM-DD
-        birthdate_obj = datetime.strptime(self.birthdate, "%Y-%m-%d").date()
+        birth_date = datetime.strptime(self.birthdate, "%Y-%m-%d").date()
         today = date.today()
-        
-        # Вычисляем возраст в полных годах
-        age_years = today.year - birthdate_obj.year
-        
-        # Проверяем, был ли уже день рождения в текущем году
-        # Сравниваем месяц и день
-        if (today.month, today.day) < (birthdate_obj.month, birthdate_obj.day):
-            age_years -= 1  # День рождения еще не был в этом году
-        
-        return age_years
-
-    def to_dict(self) -> Dict[str, Any]:
-        """
-        Сериализует объект Student в словарь.
-        
-        Returns:
-            Dict[str, Any]: Словарь со всеми полями студента
-        """
+        age = today.year - birth_date.year #вычисляем возраст
+        if (today.month, today.day) < (birth_date.month, birth_date.day): #учитываем месяц и день рождения
+            age -= 1
+        return age
+    
+    def to_dict(self) -> Dict[str, Any]: #cериализация объекта в словарь
         return {
             "fio": self.fio,
             "birthdate": self.birthdate,
             "group": self.group,
             "gpa": self.gpa
         }
-
+    
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]) -> 'Student':
-        """
-        Десериализует объект Student из словаря.
-        
-        Args:
-            d (Dict[str, Any]): Словарь с данными студента
-            
-        Returns:
-            Student: Новый объект класса Student
-        """
+    def from_dict(cls, data: Dict[str, Any]) -> 'Student': #десериализация объекта из словаря
         return cls(
-            fio=d["fio"],
-            birthdate=d["birthdate"],
-            group=d["group"],
-            gpa=d["gpa"]
+            fio=data["fio"],
+            birthdate=data["birthdate"],
+            group=data["group"],
+            gpa=data["gpa"]
         )
-
-    def __str__(self) -> str:
-        """
-        Возвращает строковое представление студента.
-        
-        Returns:
-            str: Красиво отформатированная строка с информацией о студенте
-        """
-        return f"{self.fio}, {self.group}, GPA: {self.gpa:.2f}, возраст: {self.age()} лет"
+    
+    def __str__(self) -> str: #вывод информации о студенте
+        return f"Студент: {self.fio}, Группа: {self.group}, Возраст: {self.age()}, Средний балл: {self.gpa}"
