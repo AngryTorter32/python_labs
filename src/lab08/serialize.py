@@ -28,9 +28,6 @@ def students_from_json(path: str) -> List[Student]:
             except ValueError as e:
                 print(f"Ошибка при обработке записи {i}: {e}")
                 continue
-            except Exception as e:
-                print(f"Неожиданная ошибка при обработке записи {i}: {e}")
-                continue
     except FileNotFoundError:
         print(f"Файл не найден: {path}")
         return []
