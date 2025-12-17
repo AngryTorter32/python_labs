@@ -102,32 +102,12 @@ class Group:
 
 
 def main():
-    """
-    Тестовый запуск класса Group с существующим CSV файлом.
-    Укажите путь к вашему CSV файлу ниже.
-    """
+    #Тестовый запуск
+    csv_file_path = "C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\lab09\\students.csv"
     
-    # УКАЖИТЕ ПУТЬ К ВАШЕМУ CSV ФАЙЛУ ЗДЕСЬ:
-    csv_file_path = "C:\\Users\\kuzne\\Documents\\GitHub\\python_labs\\data\\lab09\\students.csv"  # Замените на ваш путь к файлу
-    
-    print("=" * 60)
-    print("ТЕСТОВЫЙ ЗАПУСК КЛАССА Group")
-    print("=" * 60)
-    print(f"Используется файл: {csv_file_path}")
-    print()
-    
-    # Создаем объект Group
     group = Group(csv_file_path)
     
-    # Проверяем существование файла
-    if not Path(csv_file_path).exists():
-        print(f"ФАЙЛ НЕ НАЙДЕН: {csv_file_path}")
-        print("Создан пустой файл с заголовками.")
-        print("Для теста создайте CSV файл с данными студентов.")
-        return
-    
-    print("1. Чтение всех студентов из файла:")
-    print("-" * 40)
+    print("Чтение всех студентов из файла:")
     students = group.list()
     
     if students:
@@ -136,10 +116,9 @@ def main():
             print(f"{i:2}. {student}")
     else:
         print("В файле нет записей студентов (только заголовки)")
-    
+
     print()
-    print("2. Поиск студентов по подстроке 'Иванов':")
-    print("-" * 40)
+    print("Поиск студентов по подстроке 'Иванов':")
     found_students = group.find("Иванов")
     if found_students:
         for i, student in enumerate(found_students, 1):
@@ -148,8 +127,7 @@ def main():
         print("Студенты с такой подстрокой не найдены")
     
     print()
-    print("3. Добавление нового студента:")
-    print("-" * 40)
+    print("Добавление нового студента:")
     try:
         new_student = Student(
             "Иванов Сергей Петрович",
@@ -163,9 +141,7 @@ def main():
         print(f"Ошибка при добавлении: {e}")
     
     print()
-    print("4. Обновление данных студента:")
-    print("-" * 40)
-    # Попробуем обновить данные первого студента из списка
+    print("Обновление данных студента:")
     if students:
         first_student_fio = students[0].fio
         try:
@@ -179,13 +155,11 @@ def main():
         print("Нет студентов для обновления")
     
     print()
-    print("5. Удаление студента:")
-    print("-" * 40)
-    # Попробуем удалить несуществующего студента для демонстрации
+    print("Удаление студента:")
     test_fio = "Несуществующий Студент"
     print(f"Попытка удалить: '{test_fio}'")
     initial_count = len(group.list())
-    group.remove(test_fio)  # Не должно вызвать ошибку
+    group.remove(test_fio)
     final_count = len(group.list())
     if initial_count == final_count:
         print(f"Студент не найден, количество записей не изменилось: {final_count}")
@@ -193,8 +167,7 @@ def main():
         print(f"Студент удален. Было: {initial_count}, стало: {final_count}")
     
     print()
-    print("6. Итоговый список студентов:")
-    print("-" * 40)
+    print("Итоговый список студентов:")
     final_students = group.list()
     if final_students:
         for i, student in enumerate(final_students, 1):
@@ -204,11 +177,7 @@ def main():
         print("Нет записей студентов")
     
     print()
-    print("=" * 60)
-    print("ТЕСТ ЗАВЕРШЕН")
     print("Файл сохранен с изменениями.")
-    print("=" * 60)
-
 
 if __name__ == "__main__":
     main()
