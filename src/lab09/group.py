@@ -1,17 +1,8 @@
 import csv
 from pathlib import Path
 from typing import List
+from src.lab08.models import Student
 
-
-class Student:
-    def __init__(self, fio: str, birthdate: str, group: str, gpa: float):
-        self.fio = fio
-        self.birthdate = birthdate
-        self.group = group
-        self.gpa = gpa
-    
-    def __repr__(self):
-        return f"Student(fio='{self.fio}', birthdate='{self.birthdate}', group='{self.group}', gpa={self.gpa})"
 
 
 class Group:
